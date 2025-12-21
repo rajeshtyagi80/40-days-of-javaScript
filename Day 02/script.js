@@ -16,13 +16,13 @@ console.log(student.favoriteProgrammingLanguage);
 let student_2 = student;
 student.name = "Kunal";       // name of student is modified
 console.log(student.name);
-console.log(student_2.name);
+console.log(student_2.name); // only refrence is assigned to student_2 therefore modification reflect in both
 
 let arr = [1,2,3,4];
 
 arr_2 = arr;
-arr = [1,2,3,4,5];           // arr modified
+arr = [1,2,3,4,5];           // array modified
 console.log(arr);
-console.log(arr_2);
+console.log(arr_2);          // it looks reassigning arry make copy of arry
 
 
