@@ -120,7 +120,7 @@ All sides different is called, Scalene Triangle.
 Take the sides of a triangle as input and write a program to determine the triangle type.
 Change the inputs everytime manually to see if the output changes correctly.*/
 
-let sideA = 23, sideB = 23, sideC = 23;
+let sideA = 23, sideB = 23, sideC = 24;
 
 if (sideA + sideB > sideC && sideB + sideC > sideA && sideA + sideC > sideB) {
     console.log("Triangle is valid")
