@@ -3,7 +3,8 @@ function guessSecretNumber() {
     const secretNumber = Math.floor(Math.random() * 10) + 1;
     let userNumber = prompt("Guess a number between 1 and 10");
     let userAttempt = 1;
-        
+    let flag = false;
+
     do {
         if (userNumber == secretNumber) {
             console.log("You have guessed the number in ", userAttempt, " attempts")
@@ -17,18 +18,22 @@ function guessSecretNumber() {
             userAttempt += 1;
         } else {
             console.log("Not a valid option")
-            console.log(userNumber, secretNumber)
+            flag = true;
             break;
         }
-    } while ( userNumber != secretNumber );
-    if (userAttempt > 1) {
+
+    } while (userNumber != secretNumber);
+
+    
+    if (userAttempt > 1 && flag === false) {
         console.log("Congrats! you have guessed in ", userAttempt, " attempts")
     }
-    let playAgainPrompt = prompt("Want to play again?  yes/no");
-    let playAgain = playAgainPrompt ? playAgainPrompt.toLocaleLowerCase() : "no"
-    if (playAgain === "y"){
+
+    let playAgainPrompt = prompt("Want to play again?  y/n");
+    let playAgain = playAgainPrompt ? playAgainPrompt.toLocaleLowerCase() : "n"
+    if (playAgain === "y") {
         guessSecretNumber();
-    } else  {
+    } else {
         console.log("Thanks for playing. See you next time!")
     }
 
