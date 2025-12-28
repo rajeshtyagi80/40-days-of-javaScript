@@ -5,7 +5,7 @@ CPEP flow Diagram.
 
 
 Stack Heap Diagram.
-![StackHeap_image](https://github.com/rajeshtyagi80/40-days-of-javaScript/blob/40fcfebe2634f8e67e0b54e78c368229eaf31d6b/Day%2008/images/StackHeapDay08.png)
+![StackHeap_image](https://github.com/rajeshtyagi80/40-days-of-javaScript/blob/e6ce710c16a6a9d6812d8f0c4f6296e2793c1f66/Day%2008/images/StackHeapDay08.png)
 
 
 Stack Diagram
