@@ -4,25 +4,33 @@
 
 {
 
-// === name, address, occupation variable's TDZ started here
+// === name, address, occupation variable’s TDZ started here
+
+console.log(name): //ReferenceError
+
+console.log(address): //ReferenceError
+
+let address = “Delhi”; // === address variables’s TDZ ends here
+
+let name = “Raghu” // === name variable’s TDZ ends here
+
+console.log(name):
+
 //
-console.log(name); // RerenceError
+
 //
-console.log(address); // RerenceError
-let address = "Delhi"; // === address variable's TDZ ends here
-//
-let name = "Raghu" // === name variable's TDZ ends here
-console.log(name);
-//
-//
-//
+
 console.log(occupation) // ReferenceError
+
 //
-let occupation = "Farming"; // === occupation variable's TDZ ends here
+
+let occupation = “Farming:’ // === occupation variable’s TDZ ends here
+
 //
-console.log(occupation);
 
 }
+
+
 
 ## **Variable Hoisting**
 
