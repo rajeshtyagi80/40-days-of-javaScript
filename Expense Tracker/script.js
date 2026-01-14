@@ -31,8 +31,8 @@ function expenseTracker(userName, initialBudget) {
       if (user.budget >= amount) {
         id++;
         expenses.push({ id: id, amount: amount, category: category, description: description });
-        console.log("Expense Created:", expenses[expenses.length - 1]);
-      } else console.warn("Insufficent Budget: Add Budgeet")
+        console.log("Expense Created:", expenses.at(-1));
+      } else console.warn("Insufficent Budget: Add Budget")
       user.budget = user.budget - amount;
     },
     removeExpense: (id) => {
@@ -48,90 +48,93 @@ function expenseTracker(userName, initialBudget) {
     },
     updateExpense: (id, amount = 0, category = "", description = "") => {
       if (amount) {
-        user.budget = user.budget + expenses.find(expense => { return expense.id === id; }).amount - amount;
-      }
-      const updateExpense = expenses.map(expense => {
-        if (expense.id === id) {
-          expense.amount = amount ? amount : expense.amount;
-          expense.category = category ? category : expense.category;
-          expense.description = description ? description : expense.description;
-        }
-        return expense;
-      })
+        if (user.budget >= amount) {
+          user.budget = user.budget + expenses.find(expense => { return expense.id === id; }).amount - amount;
+          const updateExpense = expenses.map(expense => {
+            if (expense.id === id) {
+              expense.amount = amount ? amount : expense.amount;
+              expense.category = category ? category : expense.category;
+              expense.description = description ? description : expense.description;
+            }
+            return expense;
+          })
 
-    },
-    totalExpenses: () => {
-      const totalExpenses = expenses.reduce((accumulator, currentValue) => {
-        accumulator = accumulator + currentValue.amount;
-        return accumulator;
-      }, 0);
-      console.log("Total expenses:", totalExpenses);
+        }else { console.warn("Insufficent Budget: Add Budget") }
+      } 
+      },
+      totalExpenses: () => {
+        const totalExpenses = expenses.reduce((accumulator, currentValue) => {
+          accumulator = accumulator + currentValue.amount;
+          return accumulator;
+        }, 0);
+        console.log("Total expenses:", totalExpenses);
 
-    },
-    expenseByCategory: () => {
-      const expenseByCategory = Object.groupBy(expenses, ({ category }) => category);
-      console.log("Expenses grouped by category:", expenseByCategory);
-    },
-    highestExpense: () => {
-      highestExpenseCollection = expenses.toSorted((a, b) => {
-        return b.amount - a.amount;
+      },
+        expenseByCategory: (category) => {
+          const expenseByCategory = expenses.filter(expense => expense.category === category);
+          console.log("Expenses by category:",category , expenseByCategory);
+        },
+          highestExpense: () => {
+            highestExpenseCollection = expenses.toSorted((a, b) => {
+              return b.amount - a.amount;
 
-      })
-      const topCollection = highestExpenseCollection.filter(expense => {
-        return expense.amount === highestExpenseCollection[0].amount;
+            })
+            const topCollection = highestExpenseCollection.filter(expense => {
+              return expense.amount === highestExpenseCollection[0].amount;
 
-      })
+            })
 
-      console.log("Highest expenses:", highestExpenseCollection[0].amount, topCollection);
+            console.log("Highest expenses:", highestExpenseCollection[0].amount, topCollection);
 
-    },
+          },
 
-    lowestExpense: () => {
-      lowestExpenseCollection = expenses.toSorted((a, b) => {
-        return a.amount - b.amount;
+            lowestExpense: () => {
+              lowestExpenseCollection = expenses.toSorted((a, b) => {
+                return a.amount - b.amount;
 
-      })
-      const topCollection = lowestExpenseCollection.filter(expense => {
-        return expense.amount === lowestExpenseCollection[0].amount;
+              })
+              const topCollection = lowestExpenseCollection.filter(expense => {
+                return expense.amount === lowestExpenseCollection[0].amount;
 
-      })
+              })
 
-      console.log("Lowest expenses:", lowestExpenseCollection[0].amount, topCollection);
-    },
+              console.log("Lowest expenses:", lowestExpenseCollection[0].amount, topCollection);
+            },
 
-    userInfo: () => {
-      console.log("Name:", user.name, ", Available budget", user.budget);
-    },
+              userInfo: () => {
+                console.log("Name:", user.name, ", Available budget", user.budget);
+              },
 
-    addBudget: (addBudget) => {
-      user.budget = user.budget + addBudget;
-      console.log("Budget updated: Avaliable budget,", user.budget);
-    },
-    allExpenses: () => {
-      console.log("All expenses:", expenses);
+                addBudget: (addBudget) => {
+                  user.budget = user.budget + addBudget;
+                  console.log("Budget updated: Avaliable budget,", user.budget);
+                },
+                  allExpenses: () => {
+                    console.log("All expenses:", expenses);
+                  }
+
     }
-
   }
-}
 
 
 
-const tapasExpenses = expenseTracker("Tapas", 6000);
-tapasExpenses.addExpense(300, "Food", "Dinner");
-tapasExpenses.addExpense(300, "Food", "Lunch");
-tapasExpenses.addExpense(400, "Shopping", "Shoes");
-tapasExpenses.addExpense(400, "Shopping", "Shirt");
-tapasExpenses.addExpense(200, "Food", "Break Fast");
-tapasExpenses.addExpense(100, "Rent", "Car");
-tapasExpenses.addExpense(200, "Bill", "Gas");
-tapasExpenses.removeExpense(2);
-tapasExpenses.removeExpense(2);
-tapasExpenses.addExpense(300, "Rent", "Hotel");
-tapasExpenses.updateExpense(6, 0)
-tapasExpenses.expenseByCategory()
-tapasExpenses.totalExpenses()
-tapasExpenses.highestExpense()
-tapasExpenses.lowestExpense()
-tapasExpenses.userInfo()
-tapasExpenses.addBudget(1000)
-tapasExpenses.allExpenses()
+  const tapasExpenses = expenseTracker("Tapas", 6000);
+  tapasExpenses.addExpense(300, "Food", "Dinner");
+  tapasExpenses.addExpense(300, "Food", "Lunch");
+  tapasExpenses.addExpense(400, "Shopping", "Shoes");
+  tapasExpenses.addExpense(400, "Shopping", "Shirt");
+  tapasExpenses.addExpense(200, "Food", "Break Fast");
+  tapasExpenses.addExpense(100, "Rent", "Car");
+  tapasExpenses.addExpense(200, "Bill", "Gas");
+  tapasExpenses.removeExpense(2);
+  tapasExpenses.removeExpense(2);
+  tapasExpenses.addExpense(300, "Rent", "Hotel");
+  tapasExpenses.addExpense(700, "Rent", "Hotel");
+  tapasExpenses.updateExpense(6, 6000)
+  tapasExpenses.expenseByCategory("Food")
+  tapasExpenses.totalExpenses()
+  tapasExpenses.highestExpense()
+  tapasExpenses.lowestExpense()
+  tapasExpenses.userInfo()
+  tapasExpenses.addBudget(1000)
+  tapasExpenses.allExpenses()
