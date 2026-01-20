@@ -1,0 +1,22 @@
+
+body {
+    margin-left: 20px;
+}
+
+.style {
+    margin-left: 5px;
+    margin-bottom: 15px;
+}
+
+.style-1 {
+     background-color: lightgrey;
+    min-width: 80px;
+    font-weight: bold;
+}
+
+.style-2 {
+    background-color: lightgrey;
+    min-width: 180px;
+    font-weight: bold;
+
+}
