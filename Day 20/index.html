@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced DOM Tricks</title>
+    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <ul>
+        <h4>Favorite Fruits</h3>
+            <li class="active">Mango</li>
+            <li>Pineapple</li>
+            <li>Banana</li>
+    </ul>
+    <hr>
+
+    <p id="holi">Holi is a festival that celebrates the victory of good over evil by spreading love, brotherhood,
+        harmony, and happiness. It is the festival during which people forget their rivalry and hug their enemies,
+        forgetting all the hatred and negativity.              
+    </p>
+    <input id="start" placeholder="Start Index" type="number">
+    <input id="end" placeholder="End Index" type="number">
+    <button onclick="highlightText()">Highlight</button>
+    <hr>
+    <div>
+        <div class="wrapper-div">
+            <P>Insert 100 list items into the DOM using <br>
+                1. Plain DOM method and <br> 2. DocumentFragment method </P>
+            <button onclick="planeDOM()">Plane DOM</button>
+            <button onclick="docFragment()">DocFragment</button>
+            <div></div>
+        </div>
+    </div>
+    <hr>
+
+    <div>
+        <button onclick="clone()">Clone</button>
+    </div>
+    <div class="wrapper-div2">
+        <h2>Orignal</h2>
+        <div class="card-template">
+
+            <h3 class="title">Diwali</h3>
+            <p class="desc">Festival of Lights: Diwali is famously known as the "Festival of Lights" because it is
+                celebrated by lighting rows of earthen lamps called diyas.</p>
+
+        </div>
+    </div>
+
+    <div class="wrapper-div2">
+        <h2>Deep Cloning</h2>
+    </div>
+    <div class="wrapper-div2">
+        <h2>Shallow Cloning</h2>
+
+    </div>
+    <hr>
+    </div>
+    <h4>MutationObserver Watcher 👀</h4>
+    <button onclick="mutateDiv()">Mutate</button>
+    <div id="watcher" class="white">
+        The spring season is one of the most beautiful times of the year. After the long winter, nature awakens with
+        flowers blooming and trees sprouting new leaves. The temperature is mild and comforting.
+    </div>
+
+</body>
+
+</html>
