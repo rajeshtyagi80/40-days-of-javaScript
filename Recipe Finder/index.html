@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder</title>
+     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 10px;
+            background-color: #8CDFD6;
+            color: black;
+            margin: auto;
+            width: 98%;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+
+        .header {
+            font-weight: bold;
+            padding: 8px 12px;
+            background-color: #6DC0D5;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .outerDiv {
+            background-color: #6DC0D5;
+            margin: 10px 10px 10px 0;
+            border-radius: 12px;
+            padding-bottom: 4px;
+            display: none;
+            max-width: 700px;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 8px 8px 6px;
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        .detail {
+            height: 0;
+            padding: 0 8px;
+            transition: .4s ease;
+            overflow: hidden;
+        }
+
+        .notFound {
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #91aab1;
+            margin: 10px 0;
+            border-radius: 12px;
+            padding: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="header">Recipe Finder</h1>
+    <input type="text" id="search" placeholder="Search Recipe" onkeyup="filterRecipe(true)" class="header">
+    <button id="clearBtn" onclick="clearSearch()" class="header">Clear</button>
+    <div id="recipeList"></div>
+
+     <script>
+     const recipes = [
+  {
+    title: "Spaghetti Carbonara",
+    ingredients: ["Spaghetti", "Eggs", "Parmesan Cheese", "Bacon"],
+    instructions: "Cook pasta. Mix with eggs and cheese. Add bacon."
+  },
+  {
+    title: "Chicken Curry",
+    ingredients: ["Chicken", "Curry Powder", "Onions", "Tomatoes"],
+    instructions: "Cook onions, add chicken, spices, and tomatoes."
+  },
+  {
+    title: "Grilled Cheese Sandwich",
+    ingredients: ["Bread", "Cheddar Cheese", "Butter"],
+    instructions: "Butter bread, place cheese between slices, and grill."
+  },
+  {
+    title: "Veggie Stir Fry",
+    ingredients: ["Broccoli", "Carrots", "Bell Peppers", "Soy Sauce"],
+    instructions: "Stir fry vegetables and add soy sauce."
+  },
+  {
+    title: "Sprout Chaat",
+    ingredients: ["Mixed sprouts", "Grated carrot", "Paneer cubes", "Onion", "Tomato", "Lemon juice"],
+    instructions: "Combine all ingredients in a bowl, season with salt and pepper, and mix well."
+  },
+  {
+    title: "Quick Vegetable Stir-Fry",
+    ingredients: ["Mixed veggies", "Soy sauce", "Garlic", "Ginger", "Oil"],
+    instructions: "Heat oil in a wok, stir-fry vegetables on high heat, and season with soy sauce and aromatics."
+  },
+  {
+    title: "Aglio e Olio Pasta",
+    ingredients: ["Pasta", "Garlic", "Olive oil", "Red pepper flakes", "Parsley"],
+    instructions: "Toss cooked pasta in golden-fried garlic oil with chili flakes and parsley."
+  },
+  {
+    title: "Easy 3-Ingredient Tomato Soup",
+    ingredients: ["Canned tomatoes", "Onion", "Broth", "Butter"],
+    instructions: "Sauté onions, add tomatoes and broth, simmer for 15 minutes, and blend until smooth."
+  },
+  {
+    title: "Garlic Egg Fried Rice",
+    ingredients: ["Cooked rice", "Eggs", "Garlic", "Soy sauce", "Spring onions"],
+    instructions: "Scramble eggs, stir-fry garlic and rice, then add soy sauce and spring onions."
+  },
+  {
+    title: "Easy Quesadilla",
+    ingredients: ["Tortilla", "Cheese", "Black beans", "Salsa"],
+    instructions: "Fill tortilla with cheese and beans, fold, and pan-fry until crispy on both sides."
+  },
+  {
+    title: "Pan-Fried Paneer Tikka",
+    ingredients: ["Paneer", "Hung curd", "Chilli powder", "Garam masala", "Veggie cubes"],
+    instructions: "Marinate paneer and veggies in yogurt spices, then pan-fry until lightly charred."
+  },
+  {
+    title: "Three-Minute Chocolate Cake",
+    ingredients: ["Flour", "Cocoa powder", "Sugar", "Milk", "Oil"],
+    instructions: "Mix all ingredients in a mug and microwave for 3 minutes."
+  },
+  {
+    title: "Cottage Cheese-Walnut Toast",
+    ingredients: ["Bread", "Cottage cheese", "Walnuts", "Honey", "Mint"],
+    instructions: "Toast bread, spread with cottage cheese, and top with crushed walnuts, honey, and mint."
+  },
+  {
+    title: "3-Ingredient Peanut Butter Cookies",
+    ingredients: ["Peanut Butter", "Sugar", "Egg"],
+    instructions: "Mix one cup each of peanut butter and sugar with one egg, scoop onto a tray, and bake at 350°F (175°C) for 10-12 minutes."
+  }
+];
+
+let lastSearch = localStorage.getItem("lastSearch") || "";
+const recipeSearchEl = document.getElementById("search");
+const recipeListEl = document.getElementById("recipeList");
+const clearBtn = document.getElementById("clearBtn");
+
+recipes.forEach(recipe => {
+
+  const recipeEl = document.createElement("div");
+  const recipeTitleEl = document.createElement("div");
+  const recipeDetailEl = document.createElement("div");
+  const recipeIngredientsEl = document.createElement("p");
+  const recipeInstructionsEl = document.createElement("p");
+  const ingredientsHeading = document.createElement("span");
+  const instructionsHeading = document.createElement("span");
+
+  recipeEl.classList.add("outerDiv");
+  recipeTitleEl.classList.add("title");
+  recipeDetailEl.classList.add("detail");
+  recipeDetailEl.setAttribute("style", "height: 0px")
+
+  ingredientsHeading.textContent = "Ingredients: ";
+  instructionsHeading.textContent = "Instructions: ";
+
+  recipeIngredientsEl.appendChild(ingredientsHeading);
+  recipeInstructionsEl.appendChild(instructionsHeading);
+
+  recipeTitleEl.textContent = recipe.title;
+  recipeIngredientsEl.appendChild(document.createTextNode(recipe.ingredients.join(", ")));
+  recipeInstructionsEl.appendChild(document.createTextNode(recipe.instructions));
+
+  recipeDetailEl.appendChild(recipeIngredientsEl);
+  recipeDetailEl.appendChild(recipeInstructionsEl);
+
+  recipeEl.appendChild(recipeTitleEl);
+  recipeEl.appendChild(recipeDetailEl);
+  recipeListEl.appendChild(recipeEl);
+
+  recipeEl.addEventListener("click", (e) => {
+    e.stopPropagation();
+    let currentRecipe = e.target.parentElement;
+
+    if (e.target.tagName === "P") {
+      currentRecipe = e.target.parentElement.parentElement;
+    }
+    if (e.target.tagName === "SPAN") {
+      currentRecipe = e.target.parentElement.parentElement.parentElement;
+    }
+    
+    const currentRecipeDetail = currentRecipe.querySelector(".detail");
+
+    if (currentRecipeDetail.style.height === '0px') {
+      // Expand: set height to content's actual height (scrollHeight)
+      currentRecipeDetail.style.height = `${currentRecipeDetail.scrollHeight}px`;
+    } else {
+      // Collapse: set height to 0
+      currentRecipeDetail.style.height = '0px';
+    }
+  });
+});
+
+const allRecipes = document.querySelectorAll(".outerDiv");
+const allRecipesDetail = document.querySelectorAll(".detail");
+
+function filterRecipe(caller) {
+
+  const messageEl = document.querySelector(".notFound");
+  const searchRecipe = recipeSearchEl.value;
+  const filteredRecipes = document.querySelector("#recipeList");
+  const recipeNotFoundEl = document.createElement("div");
+
+  if(messageEl){
+    document.body.removeChild(messageEl);
+  }
+
+  allRecipes.forEach(recipe => {
+    recipe.style.display = recipe.firstChild.innerText.toLowerCase().includes(searchRecipe.toLowerCase()) ? "block" : "none";
+  })
+
+  if(caller){
+  localStorage.setItem("lastSearch", recipeSearchEl.value);
+  }
+
+  recipeNotFoundEl.classList.add("notFound");
+  
+  if(!filteredRecipes.innerText) {
+
+    recipeNotFoundEl.textContent = "No recipe found.";
+    document.body.appendChild(recipeNotFoundEl);
+  }
+}
+
+function clearSearch() {
+  recipeSearchEl.value = "";
+  filterRecipe(false);
+}
+
+recipeSearchEl.value = lastSearch;
+filterRecipe();</script>
+   
+</body>
+ 
+</html>
