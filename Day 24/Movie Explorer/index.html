@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Explorer</title>
+  <link rel="stylesheet" href="app.css">
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+  <div id="container">
+
+    <header>
+      <h1>Movies Explorer</h1>
+      <div>
+        <input type="text" id="searchInput"><button id="searchBtn">🔍︎</button>
+      </div>
+    </header>
+    <div id="cards-container"></div>
+    
+    <template id="card-template">
+      <div class="card">
+        <img onerror=" this.src=('https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'); this.classList.add('is-broken');" >
+        <div>
+          <p id="title"><span>Title:</span>  Koyla</p>
+          <p id="year"><span>Year:</span>  1997</p>
+          <p id="type"><span>Type:</span>  Movie</p>
+          <p id="genre"><span>Genre:</span>  Action, Drama, Musical</p>
+          <p id="director"><span>Director:</span>  Rakesh Roshan</p>
+          <p id="writer"><span>Writer:</span>  Sachin Bhowmick, Ravi Kapoor, Anwar Khan</p>
+          <p id="language"><span>Language:</span>  Hindi</p>
+          <p id="country"><span>Country:</span>  India</p>
+        </div>
+      </div>
+    </template>
+  </div>
+  </body>
+  
+</html>
