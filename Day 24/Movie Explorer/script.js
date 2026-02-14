@@ -27,8 +27,6 @@ async function moviesDisplay() {
     isExecuting = false;
   }, 1000);
 
-  try {
-
     container.innerHTML = "";
 
     const moreResultsEl = document.getElementById("moreResults")
@@ -38,7 +36,7 @@ async function moviesDisplay() {
     const search = searchInputEl.value;
     if (search) {
 
-      let url = "https://www.omdbapi.com/?i=tt3896198&apikey=ecee3d6f&s=";
+      let url = "https://www.omdbapi.com/?i=tt3896198&apikey=c18ebc31&s=";
       url = url.concat(search);
       let response = await fetch(url);
       let data = await response.json();
@@ -58,7 +56,7 @@ async function moviesDisplay() {
 
             await waitForClick();  // waiting for user to click on "More Results" element
 
-            url = "https://www.omdbapi.com/?i=tt3896198&apikey=ecee3d6f&s=";
+            url = "https://www.omdbapi.com/?i=tt3896198&apikey=c18ebc31&s=";
             url = url.concat(search).concat(`&page=${i}`);
             response = await fetch(url);
             data = await response.json();
@@ -71,7 +69,7 @@ async function moviesDisplay() {
 
         moviesArray.forEach(async (element) => {
 
-          const url = `https://www.omdbapi.com/?i=${element.imdbID}&apikey=ecee3d6f`; //  fetch call to get detais of movie using imdb ID.
+          const url = `https://www.omdbapi.com/?i=${element.imdbID}&apikey=c18ebc31`; //  fetch call to get detais of movie using imdb ID.
           const response = await fetch(url);
           const data = await response.json();
           const clone = template.content.cloneNode(true);
@@ -91,11 +89,7 @@ async function moviesDisplay() {
         });
       };
     };
-  } catch (error) {
-    console.log(error);
-  } finally {
-    isExecuting = false;
-  }
+  
 };
 
 function waitForClick() {
